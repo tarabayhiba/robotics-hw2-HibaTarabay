@@ -114,6 +114,26 @@ void work_single(Fleet& fleet) {
     }
 }
 
+void assign_task(Fleet& fleet) {
+    std::string name = read_nonempty_string("task name: ");
+    int priority;
+    while (true) {
+        priority = read_int("priority (1-5): ");
+        if (priority >= 1 && priority <= 5) {
+            break;
+        }
+        std::cout << "Priority must be between 1 and 5.\n";
+    }
+    std::string id = read_nonempty_string("robot id: ");
+
+    try {
+        fleet.assign_task(id, Task{name, priority, id});
+        std::cout << "Task assigned.\n";
+    } catch (const std::runtime_error& e) {
+        std::cout << "Error: " << e.what() << "\n";
+    }
+}
+
 }
 
 int main() {
@@ -134,6 +154,8 @@ int main() {
             case 4: work_single(fleet);  break;
             case 5: fleet.work_all();    break;
             case 6: fleet.charge_all();  break;
+            case 7: assign_task(fleet);  break;
+            case 8: fleet.show_tasks();  break;
             default: std::cout << "Unknown option.\n"; break;
         }
     }
