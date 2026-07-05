@@ -67,7 +67,43 @@ void print_menu() {
                << "0. Exit\n";
 }
 
-}  // namespace
+void add_robot(Fleet& fleet) {
+    int type = read_int("Robot type (1=Mobile, 2=Cleaning, 3=Cooking): ");
+    if (type < 1 || type > 3) {
+        std::cout << "Unknown robot type.\n";
+        return;
+    }
+
+    std::string id      = read_nonempty_string("id: ");
+    std::string name    = read_nonempty_string("name: ");
+    int         battery = read_int("battery (0-100): ");
+
+    if (type == 1) {
+        double speed = read_double("speed: ");
+        fleet.add(std::make_shared<MobileRobot>(id, name, battery, speed));
+    } else if (type == 2) {
+        double speed         = read_double("speed: ");
+        int    dirt_capacity = read_int("dirt capacity: ");
+        fleet.add(std::make_shared<CleaningRobot>(id, name, battery, speed, dirt_capacity));
+    } else {
+        int temperature = read_int("cooking temperature (C): ");
+        fleet.add(std::make_shared<CookingRobot>(id, name, battery, temperature));
+    }
+    std::cout << "Robot added.\n";
+}
+
+void remove_robot(Fleet& fleet) {
+    std::string id = read_nonempty_string("id to remove: ");
+    try {
+        fleet.find(id);           // throws if the id doesn't exist
+        fleet.remove(id);
+        std::cout << "Robot removed.\n";
+    } catch (const std::runtime_error& e) {
+        std::cout << "Error: " << e.what() << "\n";
+    }
+}
+
+}
 
 int main() {
     Fleet fleet;
@@ -80,7 +116,12 @@ int main() {
             break;
         }
 
-        std::cout << "Option not implemented yet.\n";
+        switch (choice) {
+            case 1: add_robot(fleet);    break;
+            case 2: remove_robot(fleet); break;
+            case 3: std::cout << fleet;  break;
+            default: std::cout << "Unknown option.\n"; break;
+        }
     }
 
     return 0;
