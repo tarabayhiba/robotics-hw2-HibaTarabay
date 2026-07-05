@@ -5,7 +5,7 @@ CleaningRobot::CleaningRobot(const std::string& id, const std::string& name,
     : MobileRobot(id, name, battery, speed), dirt_capacity_(dirt_capacity) {}
 
 void CleaningRobot::work() {
-    MobileRobot::work();  // moves and drains battery like a MobileRobot
+    MobileRobot::work();  
     if (dirt_capacity_ > 0) {
         --dirt_capacity_;
     }
