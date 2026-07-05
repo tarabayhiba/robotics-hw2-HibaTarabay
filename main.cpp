@@ -103,6 +103,17 @@ void remove_robot(Fleet& fleet) {
     }
 }
 
+void work_single(Fleet& fleet) {
+    std::string id = read_nonempty_string("id to work: ");
+    try {
+        auto robot = fleet.find(id);
+        robot->work();
+        std::cout << *robot << "\n";
+    } catch (const std::runtime_error& e) {
+        std::cout << "Error: " << e.what() << "\n";
+    }
+}
+
 }
 
 int main() {
@@ -120,6 +131,9 @@ int main() {
             case 1: add_robot(fleet);    break;
             case 2: remove_robot(fleet); break;
             case 3: std::cout << fleet;  break;
+            case 4: work_single(fleet);  break;
+            case 5: fleet.work_all();    break;
+            case 6: fleet.charge_all();  break;
             default: std::cout << "Unknown option.\n"; break;
         }
     }
