@@ -134,6 +134,29 @@ void assign_task(Fleet& fleet) {
     }
 }
 
+void start_timed_work(Fleet& fleet) {
+    std::string id = read_nonempty_string("id to start timed work on: ");
+    try {
+        auto robot  = fleet.find(id);
+        auto mobile = std::dynamic_pointer_cast<MobileRobot>(robot);
+        if (!mobile) {
+            std::cout << "Robot " << id << " cannot move, it has no timed work.\n";
+            return;
+        }
+
+        int seconds = read_int("duration in seconds: ");
+        if (seconds <= 0) {
+            std::cout << "Duration must be a positive number of seconds.\n";
+            return;
+        }
+
+        mobile->start_work(seconds);
+        std::cout << "Timed work started.\n";
+    } catch (const std::runtime_error& e) {
+        std::cout << "Error: " << e.what() << "\n";
+    }
+}
+
 }
 
 int main() {
@@ -148,14 +171,15 @@ int main() {
         }
 
         switch (choice) {
-            case 1: add_robot(fleet);    break;
-            case 2: remove_robot(fleet); break;
-            case 3: std::cout << fleet;  break;
-            case 4: work_single(fleet);  break;
-            case 5: fleet.work_all();    break;
-            case 6: fleet.charge_all();  break;
-            case 7: assign_task(fleet);  break;
-            case 8: fleet.show_tasks();  break;
+            case 1: add_robot(fleet);        break;
+            case 2: remove_robot(fleet);     break;
+            case 3: std::cout << fleet;      break;
+            case 4: work_single(fleet);      break;
+            case 5: fleet.work_all();        break;
+            case 6: fleet.charge_all();      break;
+            case 7: assign_task(fleet);      break;
+            case 8: fleet.show_tasks();      break;
+            case 9: start_timed_work(fleet); break;
             default: std::cout << "Unknown option.\n"; break;
         }
     }
