@@ -8,6 +8,7 @@ public:
 
     void        work()  override;  // vacuums uses 20% battery
     std::string type()  const override;
+    std::string details() const override;
 
 protected:
     int dirt_capacity_;  // liters of dirt the bin can hold before it needs emptying
