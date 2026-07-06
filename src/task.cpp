@@ -5,6 +5,7 @@
  }
 
 std::ostream& operator<<(std::ostream& os, const Task& t) {
-    os << t.name << " " << t.priority << " " << t.assigned_to;
+    os << "Task: " << t.name << " | Priority: " << t.priority
+       << " | Assigned To: " << t.assigned_to;
     return os;
 }
