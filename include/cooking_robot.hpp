@@ -8,6 +8,7 @@ public:
 
     void        work()  override;  // cooks uses 15% battery
     std::string type()  const override;
+    std::string details() const override;
 
 protected:
     int temperature_;  // in Celsius

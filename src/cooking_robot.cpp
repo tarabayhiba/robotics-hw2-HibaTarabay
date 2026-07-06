@@ -3,7 +3,7 @@
 
 CookingRobot::CookingRobot(const std::string& id, const std::string& name,
                 int battery, int temperature)
-    : Robot(id, name, battery), temperature_(temperature) {}
+    : Robot(id, name, battery), temperature_(temperature < 0 ? 0 : temperature) {}
 
 void CookingRobot::work() {
     if (battery_ == 0) {
@@ -16,4 +16,8 @@ void CookingRobot::work() {
 
 std::string CookingRobot::type() const {
     return "CookingRobot";
+}
+
+std::string CookingRobot::details() const {
+    return "Temperature: " + std::to_string(temperature_) + "C";
 }
