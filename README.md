@@ -30,4 +30,12 @@ value entered at the menu just got stored as is with no way to see it (see probl
 I fixed it by clamping each to `>= 0` in its constructor, the same
 pattern `Robot` already used for `battery_`
 
+**Timed work (`start_work`) looked like it never returned to the menu.**
+`start_work` launches a background thread and returns immediately, so
+`main()`'s loop reprints the menu and blocks on `Choice: ` right away but
+the background thread keeps printing one status line per second underneath
+that already printed prompt, with nothing marking when it's actually done.
+It looked hung even though the program was still waiting for input the whole time the real prompt was just buried above the countdown output, not missing. I fixed it by printing a `"[id] timed work finished, back to main
+menu."` line once the background loop ends, followed by a fresh `Choice: `
+prompt, so there's something visible to type into near the bottom instead of it looking dead
 
