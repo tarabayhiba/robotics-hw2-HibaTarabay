@@ -22,6 +22,7 @@ std::string Robot::status()  const{
 
 void  Robot::charge(){
     battery_=100;
+    status_="idle";
 }
 
 std::string Robot::details() const {
