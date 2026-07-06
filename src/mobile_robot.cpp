@@ -53,5 +53,7 @@ void MobileRobot::start_work(int seconds){
             std::cout << *this << std::endl;
             std::this_thread::sleep_for(std::chrono::seconds(1));
         }
+        std::cout << "[" << id_ << "] timed work finished, back to main menu.\n"
+                   << "Choice: ";
     });
 }
