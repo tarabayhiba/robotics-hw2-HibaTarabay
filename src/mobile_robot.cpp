@@ -5,7 +5,9 @@
 
 MobileRobot::MobileRobot(const std::string& id, const std::string& name,
                 int battery, double speed)
-    : Robot(id, name, battery), speed_(speed < 0 ? 0 : speed) {}
+    : Robot(id, name, battery), speed_(speed < 0 ? 0 : (speed > 100 ? 100 : speed)) {}
+
+     
 
 MobileRobot::~MobileRobot() {
     stop_ = true;
