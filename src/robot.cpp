@@ -24,6 +24,10 @@ void  Robot::charge(){
     battery_=100;
 }
 
+std::string Robot::details() const {
+    return "";
+}
+
 bool Robot::operator==(const Robot& other) const {
     return id_ == other.id_;
 }
@@ -41,8 +45,12 @@ LHS of << is std::ostream not Robot--> can't be a method on Robot
 --> it must be a free function
 --> needs friend to reach the protected member */
 std::ostream& operator<<(std::ostream& os, const Robot& r) {
-    os << r.id_ << " " << r.name_ << " " << r.type() << " "
-       << r.battery_ << " " << r.status_;
+    os << "ID: " << r.id_ << " | Name: " << r.name_ << " | Type: " << r.type()
+       << " | Battery: " << r.battery_ << "% | Status: " << r.status_;
+    std::string extra = r.details();
+    if (!extra.empty()) {
+        os << " | " << extra;
+    }
     return os;
 }
 

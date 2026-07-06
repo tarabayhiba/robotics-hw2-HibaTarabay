@@ -12,6 +12,10 @@ public:
     virtual void        charge();     // restores battery to 100
     virtual std::string type()  const = 0;
 
+    // Extra fields a derived robot wants shown by operator<< (e.g. "Speed: 3").
+    // Empty by default; overridden by derived classes that have their own fields.
+    virtual std::string details() const;
+
     std::string id()      const;
     std::string name()    const;
     int         battery() const;
