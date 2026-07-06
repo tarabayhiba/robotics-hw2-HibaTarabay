@@ -5,7 +5,7 @@
 
 MobileRobot::MobileRobot(const std::string& id, const std::string& name,
                 int battery, double speed)
-    : Robot(id, name, battery), speed_(speed) {}
+    : Robot(id, name, battery), speed_(speed < 0 ? 0 : speed) {}
 
 MobileRobot::~MobileRobot() {
     stop_ = true;
@@ -26,6 +26,10 @@ void MobileRobot::work() {
 
 std::string MobileRobot::type()  const {
     return "MobileRobot";
+}
+
+std::string MobileRobot::details() const {
+    return "Speed: " + std::to_string(speed_);
 }
 
 void MobileRobot::start_work(int seconds){

@@ -11,6 +11,7 @@ public:
 
     void        work()  override;  // moves, uses 20% battery
     std::string type()  const override;
+    std::string details() const override;
 
     // Launches a background thread that calls work() once per second
     // for the given duration, printing status after each call.
