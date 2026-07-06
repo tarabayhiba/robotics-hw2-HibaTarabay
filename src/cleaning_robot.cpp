@@ -3,7 +3,8 @@
 CleaningRobot::CleaningRobot(const std::string& id, const std::string& name,
                 int battery, double speed, int dirt_capacity)
     : MobileRobot(id, name, battery, speed),
-      dirt_capacity_(dirt_capacity < 0 ? 0 : dirt_capacity) {}
+      dirt_capacity_(dirt_capacity < 0 ? 0 : (dirt_capacity>100?100:dirt_capacity)) {}
+     
 
 void CleaningRobot::work() {
     MobileRobot::work();  
